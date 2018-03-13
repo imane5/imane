@@ -20,12 +20,18 @@ namespace Students
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static DataClasses1DataContext cl;
+        public static DataClasses2DataContext cl;
         public static Filiere filiere = null;
         public static etudiant etudiant = null;
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Lister_Loaded(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

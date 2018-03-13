@@ -19,9 +19,19 @@ namespace Students
     /// </summary>
     public partial class test : Window
     {
+        private Lister lister;
+        private int id;
+
         public test()
         {
             InitializeComponent();
+        }
+
+        public test(Lister lister, int id)
+        {
+            // TODO: Complete member initialization
+            this.lister = lister;
+            this.id = id;
         }
 
        

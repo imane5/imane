@@ -5,19 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Students"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" x:Class="Students.Lister"
-             mc:Ignorable="d" Height="503.868" Width="838.686" Background="#FFDEDEDE"
+             mc:Ignorable="d" Height="503.868" Width="1519.589" Background="White"
           >
-    <Grid Margin="27,27,29,29" Background="White" Loaded="Grid_Loaded">
+    <Grid Margin="27,27,29,29" Loaded="Grid_Loaded" x:Name="gridMain" Background="White">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="257*"/>
-            <ColumnDefinition Width="526*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70*"/>
-            <RowDefinition Height="123*"/>
-            <RowDefinition Height="31*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <telerik:RadGridView x:Name="GridData" HorizontalAlignment="Left" Margin="37,49,0,0" AutoGenerateColumns="False"  VerticalAlignment="Top" Width="451" Height="314" ItemsSource="{Binding Source={x:Static local:ListerFiliers.MyItems}}" Grid.RowSpan="2" Grid.Column="1" SelectionChanged="RadGridView_SelectionChanged">
+        <telerik:RadGridView x:Name="GridData" HorizontalAlignment="Left" Margin="442,49,0,0" AutoGenerateColumns="False"  VerticalAlignment="Top" Width="577" Height="314" ItemsSource="{Binding Source={x:Static local:ListerFiliers.MyItems}}" SelectionChanged="RadGridView_SelectionChanged" >
             <telerik:RadGridView.Columns>
                 <telerik:GridViewImageColumn DataMemberBinding="{Binding Path=image, Mode=OneWay}"  Width="50" ImageHeight="50"/>
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Path=cne, Mode=OneWay}"/>
@@ -27,15 +24,18 @@
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Path=date_naiss, Mode=OneWay}" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Path=adresse, Mode=OneWay}" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Path=telephone, Mode=OneWay}" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding Path=Filiere.Nom_filiere, Mode=OneWay}" />
             </telerik:RadGridView.Columns>
         </telerik:RadGridView>
 
-        <telerik:RadComboBox x:Name="search" IsEditable="False"  DisplayMemberPath="Nom_filiere" ItemsSource="{Binding Source={x:Static local:ListerFiliers.ListeFilieres}}" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" Width="218" Height="22" SelectionChanged="search_SelectionChanged">
+        <telerik:RadComboBox x:Name="search" IsEditable="False"  DisplayMemberPath="Nom_filiere" ItemsSource="{Binding Source={x:Static local:ListerFiliers.ListeFilieres}}" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" Width="218" Height="22" SelectionChanged="search_SelectionChanged" TouchDown="search_TouchDown">
         </telerik:RadComboBox>
 
-        <Label x:Name="label" Content="Rechercher par Filière :" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Height="26" Width="130"/>
-        <telerik:RadButton x:Name="radButton" Content="Modifier" Grid.Column="1" HorizontalAlignment="Left" Height="36" Margin="206,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="135" Click="radButton_Click"/>
-        <telerik:Label x:Name="infosup" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="226" Width="237"/>
-        <telerik:Label x:Name="titre" Content="{Binding ElementName=search, Path=Text , Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" HorizontalAlignment="Left" Margin="106,10,0,0" VerticalAlignment="Top" Height="34" Width="369"/>
+        <Label x:Name="label" Content="Rechercher par Filière :" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Height="26" Width="130" Foreground="#FFBBCBDE"/>
+        <telerik:RadButton x:Name="radButton" Content="Modifier" HorizontalAlignment="Left" Height="36" Margin="601,396,0,0" VerticalAlignment="Top" Width="135" Click="radButton_Click"/>
+        <telerik:Label x:Name="infosup" Content="" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Height="226" Width="237"/>
+        <telerik:Label x:Name="titre" Content="{Binding ElementName=search, Path=Text , Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="511,3,0,0" VerticalAlignment="Top" Height="34" Width="369"/>
+        <telerik:RadButton x:Name="radButton1" Content="Refresh" HorizontalAlignment="Left" Height="36" Margin="753,396,0,0" VerticalAlignment="Top" Width="127" Click="radButton1_Click"/>
+
     </Grid>
 </UserControl>

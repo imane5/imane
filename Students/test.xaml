@@ -8,6 +8,6 @@
         mc:Ignorable="d"
         Title="test" Height="600" Width="800">
     <Grid Height="968" VerticalAlignment="Top">
-        <local:Modifier Margin="59,50,62,509" Loaded="Modifier_Loaded"></local:Modifier>
+        <local:Modifier Margin="59,50,62,509"></local:Modifier>
     </Grid>
 </Window>

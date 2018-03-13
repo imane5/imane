@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Students"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1000" Width="1000">
-    <Grid>
-        <local:Lister Visibility="Hidden"></local:Lister>
-        <local:Modifier   x:Name="modif"></local:Modifier>
+        Title="MainWindow" Height="996.587" Width="1720.136">
+    <Grid Margin="0,160,61,-31">
+        <local:Lister ></local:Lister>
     </Grid>
 </Window>

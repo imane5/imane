@@ -11,11 +11,12 @@ namespace Students
     {
         public static ObservableCollection<etudiant> MyItems { get; set; }
         public static ObservableCollection<Filiere> ListeFilieres { get; set; }
-        public static DataClasses1DataContext cl;
+
+        public static DataClasses2DataContext cl;
 
         static ListerFiliers()
         {
-             cl = new DataClasses1DataContext();
+             cl = new DataClasses2DataContext();
              MyItems = new ObservableCollection<etudiant>(cl.etudiants.ToList());
              ListeFilieres = new ObservableCollection<Filiere>(cl.Filieres.ToList());
         }

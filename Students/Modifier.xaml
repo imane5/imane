@@ -5,16 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Students"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" x:Class="Students.Modifier"
-             mc:Ignorable="d" Width="671.168" BorderBrush="#FFE6E6E6" Height="408.395">
-    <UserControl.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="Black" Offset="0"/>
-            <GradientStop Color="#FFECE8E8" Offset="1"/>
-        </LinearGradientBrush>
-    </UserControl.Background>
-    <Grid Margin="10,24,10,22" Background="White">
+             mc:Ignorable="d" Width="1519.589" BorderBrush="#FFE6E6E6" Height="503.868" Background="White">
+
+    <Grid Margin="27,27,29,29" Background="White" Loaded="Grid_Loaded" Name="gridMain">
         <Grid.Resources>
-            <DataTemplate x:Key="MyTemplate">
+            <Style TargetType="telerik:DataFormDataField">
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="true">
+                        <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self} , Path= (Validation.Errors).CurrentItem.ErrorContent}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <DataTemplate x:Key="MyTemplate" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -29,25 +31,57 @@
                         <RowDefinition Height="4*"/>
                         <RowDefinition Height="0*"/>
                         <RowDefinition Height="0*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <telerik:DataFormDataField Label="Cne" DataMemberBinding="{Binding cne, Mode=TwoWay}" IsEnabled="False" LostFocus="DataFormDataField_LostFocus" />
-                    <telerik:DataFormDataField Grid.Row="1" Label="Nom" DataMemberBinding="{Binding nom, Mode=TwoWay}" LostFocus="DataFormDataField_LostFocus"/>
-                    <telerik:DataFormDataField Grid.Row="2" Label="Prenom" DataMemberBinding="{Binding prenom, Mode=TwoWay}" LostFocus="DataFormDataField_LostFocus" />
-                    <telerik:DataFormDataField Grid.Row="3" Label="Address" DataMemberBinding="{Binding adresse, Mode=TwoWay}" LostFocus="DataFormDataField_LostFocus"/>
-                    <telerik:DataFormDataField Grid.Row="4" Label="Date de naissance" DataMemberBinding="{Binding date_naiss, Mode=TwoWay}" LostFocus="DataFormDataField_LostFocus" />
-                    <telerik:DataFormDataField Grid.Row="5" Label="Sexe" DataMemberBinding="{Binding sexe, Mode=TwoWay}" LostFocus="DataFormDataField_LostFocus" />
+                    <telerik:DataFormDataField Name="cne" Label="Cne" DataMemberBinding="{Binding Path=cne, Mode=OneWay , ValidatesOnDataErrors=True}" />
+                    <telerik:DataFormDataField Grid.Row="1" Name="nom" Label="Nom" DataMemberBinding="{Binding Path=nom, Mode=OneWay , ValidatesOnDataErrors=True}" />
+                    <telerik:DataFormDataField Grid.Row="2" Name="prenom" Label="Prenom" DataMemberBinding="{Binding Path=prenom, Mode=OneWay , ValidatesOnDataErrors=True}"  />
+                    <telerik:DataFormDataField Grid.Row="3" Name="adress" Label="Address" DataMemberBinding="{Binding Path=adresse, Mode=TwoWay , ValidatesOnDataErrors=True}"/>
+                    <telerik:DataFormDateField Grid.Row="4"  Name="date_naissance" Label="Date de naissance" DataMemberBinding="{Binding  Path=date_naiss, Mode=TwoWay}"/>
+                    <telerik:DataFormComboBoxField Grid.Row="5" Name="sexe" Label="Sexe" DataMemberBinding="{Binding sexe, Mode=TwoWay}">
+                        <telerik:DataFormComboBoxField.Content>
+                            <ItemsControl>
+                                <ComboBox SelectedIndex="0" IsEditable="True">
+                                    <TextBlock Text="{Binding sexe}" ></TextBlock>
+                                </ComboBox>
+                            </ItemsControl>
+                        </telerik:DataFormComboBoxField.Content>
+                    </telerik:DataFormComboBoxField>
+                    <telerik:DataFormDataField Grid.Row="6" Name="tele" Label="Telephone" DataMemberBinding="{Binding  Path=telephone, Mode=TwoWay , ValidatesOnDataErrors=True}" />
+                    <telerik:DataFormDataField />
+                    <telerik:DataFormComboBoxField Grid.Row="7" Name="fil" Label="Filiere" DataMemberBinding="{Binding  Path=Filiere.Nom_filiere, Mode=TwoWay}">
+                        <telerik:DataFormComboBoxField.Content>
+                            <ItemsControl>
+                                <ComboBox SelectedIndex="0" IsEditable="True">
+                                    <TextBlock Text="{Binding Filiere.Nom_filiere}" ></TextBlock>
+                                </ComboBox>
+                            </ItemsControl>
+                        </telerik:DataFormComboBoxField.Content>
+                    </telerik:DataFormComboBoxField>
 
+                    <telerik:DataFormDataField Grid.Row="9" Name="image" Label="Image" DataMemberBinding="{Binding  Path=image, Mode=TwoWay}">
+                        <telerik:DataFormDataField.Content x:Uid="o">
+                            <Image Stretch="Fill" Width="50" Height="50"  Name="img" Source="{Binding image }"/>
+                        </telerik:DataFormDataField.Content>
+                    </telerik:DataFormDataField>
                 </Grid>
             </DataTemplate>
-        </Grid.Resources
->
-        <telerik:RadDataForm Name="radform" HorizontalAlignment="Left" Margin="89,44,0,0" VerticalAlignment="Top" Height="265" Width="487" AutoGenerateFields="False" ReadOnlyTemplate="{StaticResource MyTemplate}" ItemsSource="{Binding Source={x:Static local:ListerFiliers.MyItems}}" EditTemplate="{StaticResource MyTemplate}"  >
+        </Grid.Resources>
+        <telerik:RadDataForm Name="radform" BorderBrush="#FFF7F7F7" HorizontalAlignment="Left" Margin="446,44,0,0" VerticalAlignment="Top" Height="281" Width="536" AutoGenerateFields="False" 
+                ReadOnlyTemplate="{StaticResource MyTemplate}" ItemsSource="{Binding Source={x:Static local:Lister.lister},ValidatesOnExceptions=True, NotifyOnValidationError=True}"  EditTemplate="{StaticResource MyTemplate}" NewItemTemplate="{StaticResource MyTemplate}" DeletingItem="radform_DeletingItem" >
+            <telerik:RadDataForm.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF2A64FF"/>
+                    <GradientStop Color="#FFFFEFEF" Offset="1"/>
+                    <GradientStop Color="#FF3865E0"/>
+                    <GradientStop Color="#FF699AB6" Offset="0.973"/>
+                </LinearGradientBrush>
+            </telerik:RadDataForm.Background>
         </telerik:RadDataForm>
-
-        <telerik:RadButton x:Name="radButton" Content="Valider modification" HorizontalAlignment="Left" Height="Auto" Margin="246,330,0,0" VerticalAlignment="Top" Width="154" Click="radButton_Click"/>
-        <Label x:Name="label" Content="Fenêtre de modification des étudiants" HorizontalAlignment="Left" Margin="203,13,0,0" VerticalAlignment="Top" Width="214"/>
-        <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Margin="604,84,0,0" VerticalAlignment="Top"/>
-
-
+        <telerik:RadButton x:Name="uploadButton" Content="Changer Image" HorizontalAlignment="Left" Height="20" Margin="718,297,0,0" VerticalAlignment="Top" Width="145" Click="upload_Click"/>
+        <telerik:RadButton x:Name="radButton" Content="Valider modification" HorizontalAlignment="Left" Height="Auto" Margin="653,344,0,0" VerticalAlignment="Top" Width="154" Click="radButton_Click"/>
+        <Label x:Name="label" Content="Fenêtre de modification des étudiants" HorizontalAlignment="Left" Margin="571,13,0,0" VerticalAlignment="Top" Width="214"/>
+        <Label x:Name="error"  HorizontalAlignment="Left" Margin="102,275,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.185,1.613" Width="246" Background="{x:Null}" Foreground="#FFE81111" Height="34" />
+        <telerik:RadButton x:Name="radButton_Copy" Content="Retour" HorizontalAlignment="Left" Height="24" Margin="811,13,0,0" VerticalAlignment="Top" Width="122" Click="radButton_Copy_Click" />
     </Grid>
 </UserControl>
